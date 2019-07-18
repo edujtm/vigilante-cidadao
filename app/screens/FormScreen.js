@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { Menu } from 'react-native-paper';
+import { Text, Menu } from 'react-native-paper';
 
 class FormScreen extends Component {
   static navigationOptions = {
@@ -35,9 +35,9 @@ class FormScreen extends Component {
                 </Text>
 								<Menu 
 								>
-                  {items.map((item) => {
-
-                  })}
+                  {items.map((item) => (
+                    <Menu.Item>{item.text}</Menu.Item>
+                  ))}
 								</Menu>
             </View>
         </View>

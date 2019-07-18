@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button, Layout } from 'react-native-ui-kitten';
+import { Button } from 'react-native-paper';
 
 const HomeScreen = (props) => {
   const { navigation } = props;
 
   return (    
-      <Layout style={styles.container}>
+      <View style={styles.container}>
         <Button 
           appearance='outline'
           onPress={() => navigation.navigate('form')}
@@ -19,7 +19,7 @@ const HomeScreen = (props) => {
         >
           Aprenda
         </Button>
-      </Layout>
+      </View>
   );
 }
 
