@@ -1,13 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { Button } from 'react-native-paper';
+import { Button, Layout } from 'react-native-ui-kitten';
 
-const HomeScreen = () => {
-    return (    
-        <View style={styles.container}>
-            <Text>Home Screen</Text>
-        </View>
-    );
+const HomeScreen = (props) => {
+  const { navigation } = props;
+
+  return (    
+      <Layout style={styles.container}>
+        <View style={styles.expand}/>
+        <Button 
+          style={styles.button}
+          textStyle={styles.buttonText}
+          appearance='outline'
+          onPress={() => navigation.navigate('form')}
+        >
+            Denuncie
+        </Button>
+      </Layout>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -17,6 +27,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-})
+  button: {
+    color: 'red',
+    marginBottom: 16,
+  },
+  buttonText: {
+    color: 'red',
+  },
+  expand: {
+    flex: 1,
+  }
+});
 
 export { HomeScreen };

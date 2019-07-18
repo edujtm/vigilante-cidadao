@@ -1,12 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { Layout } from 'react-native-ui-kitten';
 
-const FormScreen = () => {
+class FormScreen extends Component {
+  static navigationOptions = {
+    title: 'Denuncia'
+  }
+
+  render() {
     return (    
-        <View style={styles.container}>
+        <Layout style={styles.container}>
             <Text>Form Screen</Text>
-        </View>
+        </Layout>
     );
+  }
 }
 
 const styles = StyleSheet.create({
