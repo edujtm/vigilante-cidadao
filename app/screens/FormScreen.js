@@ -9,6 +9,7 @@ class FormScreen extends Component {
     title: 'Denuncia'
   }
 
+  // Isso daqui vai ser obtido da api
 	state = {
 		items: [
 			{
