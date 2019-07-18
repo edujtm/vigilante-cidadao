@@ -1,27 +1,45 @@
-import { createSwitchNavigator, createMaterialTopTabNavigator,createAppContainer } from 'react-navigation';
+import { createSwitchNavigator, createMaterialTopTabNavigator,createAppContainer, createStackNavigator } from 'react-navigation';
 
-import { FormScreen, HomeScreen } from '../screens';
+import { FormScreen, HomeScreen, LearnScreen } from '../screens';
 
-const MainNavigator = createMaterialTopTabNavigator({
-    learn: LearnScreen,
+const TabNavigator = createMaterialTopTabNavigator({
     form: FormScreen,
+    learn: LearnScreen,
 }, {
-    paths: ['form', 'learn'],
-});
-
-const MainNavigator = createStackNavigator({
-    home: HomeScreen,
-    main: MainNavigator,
-}, {
-    headerStyle: {
-        backgroundColor: '#F44336',
-    },
-    defaultNavigationOptions: {
-        headerTint: '#FFF',
-    },
-    headerTitleStyle: {
-        fontWeight: 'bold',
+    tabBarOptions: {
+        style: {
+            backgroundColor: '#F44336',
+        }
     }
 });
 
-export default createAppContainer(MainNavigator);
+const MainNavigator = createStackNavigator({
+    tab: {
+        screen: TabNavigator,
+        title: 'Cidadão Vigilante',
+    }
+}, {
+    defaultNavigationOptions: {
+        headerStyle: {
+            backgroundColor: '#F44336',
+        },
+        headerTintColor: '#fff',
+    }
+});
+
+const AppNavigator = createSwitchNavigator({
+    home: HomeScreen,
+    main: MainNavigator,
+}, {
+    defaultNavigationOptions: {
+        headerTint: '#FFF',
+        headerStyle: {
+            backgroundColor: '#F44336',
+        },
+        headerTitleStyle: {
+            fontWeight: 'bold',
+        },
+    },
+});
+
+export default createAppContainer(AppNavigator);

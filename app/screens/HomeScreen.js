@@ -7,14 +7,17 @@ const HomeScreen = (props) => {
 
   return (    
       <Layout style={styles.container}>
-        <View style={styles.expand}/>
         <Button 
-          style={styles.button}
-          textStyle={styles.buttonText}
           appearance='outline'
           onPress={() => navigation.navigate('form')}
         >
             Denuncie
+        </Button>
+        <Button 
+          appearance='outline'
+          onPress={() => navigation.navigate('learn')}
+        >
+          Aprenda
         </Button>
       </Layout>
   );
@@ -24,12 +27,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
-  },
-  button: {
-    color: 'red',
-    marginBottom: 16,
   },
   buttonText: {
     color: 'red',
