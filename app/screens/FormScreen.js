@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { Text } from 'react-native-paper';
 
-import { Text, Menu } from 'react-native-paper';
+import { Dropdown } from '../components';
 
 class FormScreen extends Component {
   static navigationOptions = {
@@ -23,7 +24,7 @@ class FormScreen extends Component {
 	}
 
   render() {
-    const { items } = this.props;
+    const { items } = this.state;
 
     return (    
         <View style={styles.container}>
@@ -33,12 +34,10 @@ class FormScreen extends Component {
                 >
                     Categorias: 
                 </Text>
-								<Menu 
-								>
-                  {items.map((item) => (
-                    <Menu.Item>{item.text}</Menu.Item>
-                  ))}
-								</Menu>
+                <Dropdown 
+                    items={items}
+                    onSelect={(index) => console.log(items[index])}
+                />
             </View>
         </View>
     );
