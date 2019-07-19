@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { TextInput, Button, Snackbar } from 'react-native-paper';
 
-import { Dropdown, LabeledInput, FileUploader } from '../components';
+import { Dropdown, LabeledInput, FileUploader, LocationCard } from '../components';
 
 import { BASE_URL } from '../../environment.js';
 
@@ -11,7 +11,6 @@ class FormScreen extends Component {
     title: 'Denúncia'
   }
 
-  // Isso daqui vai ser obtido da api
 	state = {
 		items: [
 			{
@@ -25,13 +24,14 @@ class FormScreen extends Component {
 			}
     ],
     filepath: null,
-    snackbarVisible: true
-  }
-  
-  constructor(props) {
-    super(props);
+    snackbarVisible: false,
+    message: '',
   }
 
+  onError = (error) => {
+    this.setState({ message: error, snackbarVisible: true });
+  }
+  
   onSend = () => {
     const { filepath } = this.props;
     if (filepath) {
@@ -40,7 +40,11 @@ class FormScreen extends Component {
   }
 
   render() {
+<<<<<<< HEAD
     const { items, snackbarVisible } = this.state;
+=======
+    const { items, message, snackbarVisible } = this.state;
+>>>>>>> d1c9c9d259c9dbab1daceaa9cecc4c75a48363bb
 
     return (    
         <View style={styles.container}>
@@ -63,6 +67,9 @@ class FormScreen extends Component {
             </LabeledInput>
             <LabeledInput label="Media">
               <FileUploader/>
+            </LabeledInput>
+            <LabeledInput label="Localização">
+              <LocationCard />
             </LabeledInput>
           </ScrollView>
           <Button
