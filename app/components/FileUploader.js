@@ -5,7 +5,6 @@ import * as ImagePicker from 'expo-image-picker';
 
 import { FileItem } from './FileItem'
 
-import { BASE_URL } from '../../environment';
 
 const FileUploader = (props) => {
 
