@@ -1,6 +1,6 @@
 import { createMaterialTopTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
 
-import { FormScreen, LearnScreen } from '../screens';
+import { FormScreen, LearnScreen, MapScreen } from '../screens';
 
 const TabNavigator = createMaterialTopTabNavigator({
   form: FormScreen,
@@ -32,8 +32,21 @@ const MainNavigator = createStackNavigator({
       headerTitleStyle: {
         fontSize: 28
       }
-    })
-  }
+    }),
+  },
+  map: {
+    screen: MapScreen,
+    navigationOptions: () => ({
+      title: 'Selecionar localização',
+      headerStyle: {
+        backgroundColor: '#eeeeee'
+      },
+      headerTintColor: '#262626',
+      headerTitleStyle: {
+        fontSize: 28
+      }
+    }),
+  },
 })
 
 export default createAppContainer(MainNavigator);

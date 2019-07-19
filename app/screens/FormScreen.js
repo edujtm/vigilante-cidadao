@@ -40,6 +40,7 @@ class FormScreen extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
     const { items, snackbarVisible } = this.state;
 
     return (    
@@ -65,7 +66,9 @@ class FormScreen extends Component {
               <FileUploader/>
             </LabeledInput>
             <LabeledInput label="Localização">
-              <LocationCard />
+              <LocationCard 
+                navigation={navigation}
+              />
             </LabeledInput>
           </ScrollView>
           <Button

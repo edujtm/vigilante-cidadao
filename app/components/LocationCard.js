@@ -4,6 +4,7 @@ import { Text, Surface, IconButton } from 'react-native-paper';
 import MapView, { Marker } from 'react-native-maps';
 
 const LocationCard = (props) => {
+    const { navigation } = props;
     const [location, setLocation] = useState(null);
 
     useEffect(() => {
@@ -12,6 +13,12 @@ const LocationCard = (props) => {
             longitude: 37,
         });
     }, []);
+
+    const removeLocation = () => {
+        if (location) {
+            setLocation(null);
+        }
+    }
 
     return (
         <Surface style={styles.container}>
@@ -35,10 +42,12 @@ const LocationCard = (props) => {
                <Text>Selecione a local do ocorrido</Text> 
                <View style={styles.icons}>
                    <IconButton 
-                       icon="location-on"
-                       size={16}
+                        icon="location-on"
+                        size={16}
+                        onPress={() => navigation.navigate('map')}
                    />
                     <IconButton 
+                        onPress={removeLocation}
                         icon="delete"
                         size={16}
                     />
