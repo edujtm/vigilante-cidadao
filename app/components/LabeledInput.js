@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
         marginBottom: 4,
     },
     label: {
-        fontFamily: 'PatuaOneRegular',
         fontWeight: '400',
     },
     child: {

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { TextInput, Button, Snackbar } from 'react-native-paper';
-import Uppy from '@uppy/core';
-import Aws3 from '@uppy/aws-s3-multipart';
 
-import { Dropdown, LabeledInput } from '../components';
+import { Dropdown, LabeledInput, FileUploader } from '../components';
 
 import { BASE_URL } from '../../environment.js';
 
@@ -27,23 +25,11 @@ class FormScreen extends Component {
 			}
     ],
     filepath: null,
+    snackbarVisible: true
   }
   
   constructor(props) {
     super(props);
-    this.uppy = Uppy({ debug: false, autoProceed: false })
-      .use(Aws3, { companionUrl: BASE_URL });
-
-    this.uppy.on('upload-progress', () => {
-      console.log('Upload complete');
-    });
-
-    this.uppy.on('complete', (result) => {
-      this.setState({
-        message: 'Envio finalizado',
-        snackbarVisible: true,
-      })
-    });
   }
 
   onSend = () => {
@@ -76,7 +62,7 @@ class FormScreen extends Component {
               />
             </LabeledInput>
             <LabeledInput label="Documentos">
-              <FileUploader uppy={this.uppy} />
+              <FileUploader/>
             </LabeledInput>
           </ScrollView>
           <Button
@@ -86,9 +72,9 @@ class FormScreen extends Component {
             Enviar
           </Button>
           <Snackbar
-            visible={snackbarVisible}
+            visible={this.state.snackbarVisible}
           >
-            {message}
+            oi
           </Snackbar>
         </View>
     );

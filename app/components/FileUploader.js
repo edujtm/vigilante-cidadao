@@ -1,45 +1,37 @@
 import React, { useState, useRef } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Button } from 'react-native-paper';
-import UppyFilePicker from '@uppy/react-native';
+import * as ImagePicker from 'expo-image-picker';
 
-import FileList from './FileList';
+import { FileItem } from './FileItem'
+
 import { BASE_URL } from '../../environment';
 
 const FileUploader = (props) => {
 
-    const { uppy } = props;
-
-    // const [filepath, setFilepath] = useState(null);
+    const [filepath, setFilepath] = useState(null);
     // const [progress, setProgress] = useState(0.0);
-    const [isVisible, setVisible] = useState(false);
 
-    const showFilePicker = () => {
-        setVisible(true);
-    }
-
-    const hideFilePicker = () => {
-        setVisible(false);
+    const pickDocument = async () =>  {
+        const result = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            base64: true
+        });
+        if (!result.cancelled) {
+            setFilepath(result.uri)
+        }
+        console.log(filepath)
     }
 
     return (
         <View>
-            <UppyFilePicker 
-                show={showFilePicker}
-                onRequestClose={hideFilePicker}
-                companionUrl={BASE_URL}
-            />
-            <FileList 
-                uppy={uppy}
-                show={isVisible}
-                onRequestClose={hideFilePicker}
-            />
+            <FileItem name={filepath ? filepath.substring(0, 20) : 'Selecionar'}/>
             <View style={styles.buttonPanel}>
                 <Button
                     style={styles.fileButton}
-                    onPress={showFilePicker}
+                    onPress={pickDocument}
                 >
-                Buscar Arquivo
+                Buscar Imagem
                 </Button>
             </View>
         </View>
