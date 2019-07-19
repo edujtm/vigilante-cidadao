@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
 import { Text, Surface, IconButton } from 'react-native-paper';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 const LocationCard = (props) => {
     const [location, setLocation] = useState(null);
 
     useEffect(() => {
         setLocation({ 
-            latitude: -30,
-            longitude: 45,
+            latitude: -122,
+            longitude: 37,
         });
     }, []);
 
@@ -18,22 +18,29 @@ const LocationCard = (props) => {
             {location ? 
                 <View style={styles.mapContainer}>
                     <MapView 
+                        style={{flex: 1}}
                         scrollEnabled={false}
                         cacheEnabled={Platform.OS === 'android'}
-                        region={{ ...location, latitudeDelta: 0.02, longitude: 0.045}}
-                    />
+                        region={{ ...location, latitudeDelta: 0.02, longitudeDelta: 0.045}}
+                        zoomEnabled={false}
+                    >
+                        <Marker
+                            coordinate={location}
+                            title="Localização da ocorrência"
+                        />
+                    </MapView>
                 </View> : null
             }
-            <View styles={status.bottomBar}>
-               <Text>Localização</Text> 
-               <View styles={styles.icons}>
+            <View style={styles.bottomBar}>
+               <Text>Selecione a local do ocorrido</Text> 
+               <View style={styles.icons}>
+                   <IconButton 
+                       icon="location-on"
+                       size={16}
+                   />
                     <IconButton 
                         icon="delete"
-                        size={20}
-                    />
-                    <IconButton 
-                        icon="location-on"
-                        size={20}
+                        size={16}
                     />
                </View>
             </View>
@@ -43,18 +50,23 @@ const LocationCard = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 150,
+        height: 250,
+        flex: 1
     },
     mapContainer: {
         flex: 1,
     },
     bottomBar: {
         flexDirection: 'row',
-        flex: 1,
         justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 20,
+        marginBottom: 35,
+        height: 25,
     },
     icons: {
         flexDirection: 'row',
+        height: 'auto'
     }
 });
 

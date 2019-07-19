@@ -40,11 +40,7 @@ class FormScreen extends Component {
   }
 
   render() {
-<<<<<<< HEAD
     const { items, snackbarVisible } = this.state;
-=======
-    const { items, message, snackbarVisible } = this.state;
->>>>>>> d1c9c9d259c9dbab1daceaa9cecc4c75a48363bb
 
     return (    
         <View style={styles.container}>
