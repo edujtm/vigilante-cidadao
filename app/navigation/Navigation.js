@@ -8,12 +8,12 @@ const TabNavigator = createMaterialTopTabNavigator({
 }, {
   tabBarOptions: {
     style: {
-      backgroundColor: '#FFF'
+      backgroundColor: '#eeeeee'
     },
-    activeTintColor: '#292929',
-    inactiveTintColor: '#525252',
+    activeTintColor: '#262626',
+    inactiveTintColor: '#80868a',
     indicatorStyle: {
-      backgroundColor: '#292929'
+      backgroundColor: '#262626'
     }
   }
 });
@@ -25,9 +25,13 @@ const MainNavigator = createStackNavigator({
       title: 'Cidadão Vigilante',
       headerStyle: {
         elevation: 0,
-        shadowOpacity: 0
+        shadowOpacity: 0,
+        backgroundColor: '#eeeeee'
       },
-      headerTintColor: '#292929'
+      headerTintColor: '#262626',
+      headerTitleStyle: {
+        fontSize: 28
+      }
     })
   }
 })
