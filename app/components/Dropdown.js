@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 
 import { Menu, Button } from 'react-native-paper';
 
@@ -24,6 +25,7 @@ const Dropdown = (props) => {
 
     return (
         <Menu
+            style={styles.dropdown}
             visible={isVisible}
             onDismiss={hide}
             anchor={
@@ -45,5 +47,11 @@ const Dropdown = (props) => {
         </Menu>
     )
 }
+
+const styles = StyleSheet.create({
+    dropdown: {
+        marginTop: 40,
+    }
+});
 
 export { Dropdown }
