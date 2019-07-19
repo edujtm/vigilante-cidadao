@@ -8,7 +8,7 @@ import { BASE_URL } from '../../environment.js';
 
 class FormScreen extends Component {
   static navigationOptions = {
-    title: 'Denuncia'
+    title: 'Denúncia'
   }
 
   // Isso daqui vai ser obtido da api
@@ -40,7 +40,7 @@ class FormScreen extends Component {
   }
 
   render() {
-    const { items } = this.state;
+    const { items, snackbarVisible } = this.state;
 
     return (    
         <View style={styles.container}>
@@ -61,7 +61,7 @@ class FormScreen extends Component {
                 numberOfLines={5}
               />
             </LabeledInput>
-            <LabeledInput label="Documentos">
+            <LabeledInput label="Media">
               <FileUploader/>
             </LabeledInput>
           </ScrollView>
@@ -71,11 +71,11 @@ class FormScreen extends Component {
           >
             Enviar
           </Button>
-          <Snackbar
-            visible={this.state.snackbarVisible}
+          {/* <Snackbar
+            visible={snackbarVisible}
           >
             oi
-          </Snackbar>
+          </Snackbar> */}
         </View>
     );
   }
