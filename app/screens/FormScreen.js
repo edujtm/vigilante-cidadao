@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Text } from 'react-native-paper';
+import { View, ScrollView, StyleSheet } from 'react-native';
+import { TextInput, Button, Snackbar } from 'react-native-paper';
+import Uppy from '@uppy/core';
+import Aws3 from '@uppy/aws-s3-multipart';
 
-import { Dropdown } from '../components';
+import { Dropdown, LabeledInput } from '../components';
+
+import { BASE_URL } from '../../environment.js';
 
 class FormScreen extends Component {
   static navigationOptions = {
@@ -21,25 +25,71 @@ class FormScreen extends Component {
 			{
 				text: 'saude'
 			}
-		]
-	}
+    ],
+    filepath: null,
+  }
+  
+  constructor(props) {
+    super(props);
+    this.uppy = Uppy({ debug: false, autoProceed: false })
+      .use(Aws3, { companionUrl: BASE_URL });
+
+    this.uppy.on('upload-progress', () => {
+      console.log('Upload complete');
+    });
+
+    this.uppy.on('complete', (result) => {
+      this.setState({
+        message: 'Envio finalizado',
+        snackbarVisible: true,
+      })
+    });
+  }
+
+  onSend = () => {
+    const { filepath } = this.props;
+    if (filepath) {
+      console.log(filepath);
+    }
+  }
 
   render() {
     const { items } = this.state;
 
     return (    
         <View style={styles.container}>
-            <View style={styles.categoryRow}>
-                <Text
-                    style={styles.catergoryLabel}
-                >
-                    Categorias: 
-                </Text>
+          <ScrollView style={styles.content}>
+            <LabeledInput label="Categorias">
+              <View style={styles.category}>
                 <Dropdown 
                     items={items}
                     onSelect={(index) => console.log(items[index])}
                 />
-            </View>
+              </View>
+            </LabeledInput>
+            <LabeledInput label="Descrição">
+              <TextInput 
+                style={{ height: 150 }}
+                mode='outlined'
+                multiline 
+                numberOfLines={5}
+              />
+            </LabeledInput>
+            <LabeledInput label="Documentos">
+              <FileUploader uppy={this.uppy} />
+            </LabeledInput>
+          </ScrollView>
+          <Button
+            mode='outlined'
+            onPress={this.onSend}
+          >
+            Enviar
+          </Button>
+          <Snackbar
+            visible={snackbarVisible}
+          >
+            {message}
+          </Snackbar>
         </View>
     );
   }
@@ -49,16 +99,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
   },
-  categoryRow: {
-    flex: 1,
-    flexDirection: 'row',
+  category: {
+    alignItems: 'stretch',
   },
-  catergoryLabel: {
-    padding: 8,
-  }
-})
+});
 
 export { FormScreen };
