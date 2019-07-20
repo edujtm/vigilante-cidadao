@@ -25,18 +25,19 @@ LabeledInput.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 8,
+        marginTop: 10,
+        marginBottom: 10
     },
     labelContainer: {
         flexDirection: 'row',
-        paddingHorizontal: 8,
-        marginBottom: 4,
+        paddingHorizontal: 8
     },
     label: {
         fontWeight: '400',
     },
     child: {
         paddingHorizontal: 8,
+        marginTop: 8,
     }
 });
 

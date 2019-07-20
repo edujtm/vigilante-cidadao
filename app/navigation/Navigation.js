@@ -29,6 +29,9 @@ const MainNavigator = createStackNavigator({
         backgroundColor: '#eeeeee'
       },
       headerTintColor: '#262626',
+      headerTitleStyle: {
+        fontSize: 28
+      }
     }),
   },
   map: {

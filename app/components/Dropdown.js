@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-import { Menu, Button } from 'react-native-paper';
+import { Menu, Button, DefaultTheme } from 'react-native-paper';
 
 const Dropdown = (props) => {
     const { items, onSelect } = props;
@@ -30,6 +30,7 @@ const Dropdown = (props) => {
             onDismiss={hide}
             anchor={
                 <Button 
+                    style={styles.button}
                     mode='outlined'
                     onPress={open}
                 >
@@ -50,7 +51,11 @@ const Dropdown = (props) => {
 
 const styles = StyleSheet.create({
     dropdown: {
-        marginTop: 40,
+        marginTop: 40
+    },
+    button: {
+        borderColor: DefaultTheme.colors.primary,
+        paddingVertical: 2
     }
 });
 

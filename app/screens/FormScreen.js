@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
-import { TextInput, Button, Snackbar } from 'react-native-paper';
+import { View, ScrollView, StyleSheet, Text, Linking } from 'react-native';
+import { TextInput, FAB, Snackbar, DefaultTheme } from 'react-native-paper';
 import axios from 'axios';
 
 import { Dropdown, LabeledInput, FileUploader, LocationCard } from '../components';
@@ -84,6 +84,10 @@ class FormScreen extends Component {
 		});
   }
 
+  _handleMPLink = () => {
+    Linking.openURL('http://www.mprn.mp.br/portal/');
+  }
+
   render() {
     const { navigation } = this.props;
     const { message, items, snackbarVisible, formData } = this.state;
@@ -93,6 +97,10 @@ class FormScreen extends Component {
     return (    
         <View style={styles.container}>
           <ScrollView style={styles.content}>
+            <View style={styles.wrapperTitle}>
+              <Text style={styles.title}>Faça sua denúncia!</Text>
+              <Text style={styles.subtitle}>Sua denúncia será enviada para o <Text style={styles.external} onPress={this._handleMPLink}>Ministério Público do Rio Grande do Norte</Text>.</Text>
+            </View>
             <LabeledInput label="Categorias">
               <View style={styles.category}>
                 <Dropdown 
@@ -104,8 +112,7 @@ class FormScreen extends Component {
               </View>
             </LabeledInput>
             <LabeledInput label="Descrição">
-              <TextInput 
-                style={{ height: 150 }}
+              <TextInput
                 mode='outlined'
                 multiline 
                 numberOfLines={5}
@@ -124,18 +131,20 @@ class FormScreen extends Component {
             </LabeledInput>
 						<View style={styles.spacing}/>
           </ScrollView>
-          <Button
-            mode='outlined'
-            onPress={this.onSend}
-          >
-            Enviar
-          </Button>
-          <Snackbar
-            visible={snackbarVisible}
-						onDismiss={() => this.setState({ snackbarVisible: false })}
-          >
-           {message} 
-          </Snackbar> 
+          <View style={{ paddingHorizontal: 8, paddingVertical: 20 }}>
+            <FAB
+              style={styles.sendButton}
+              icon="send"
+              onPress={this.onSend}
+            />
+            <Snackbar
+              style={styles.snackbar}
+              visible={snackbarVisible}
+              onDismiss={() => this.setState({ snackbarVisible: false })}
+            >
+            {message} 
+            </Snackbar> 
+          </View>
         </View>
     );
   }
@@ -153,6 +162,31 @@ const styles = StyleSheet.create({
   category: {
     alignItems: 'stretch',
   },
+  wrapperTitle: {
+    paddingHorizontal: 8
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold'
+  },
+  subtitle: {
+    fontSize: 14,
+    marginTop: 5,
+    marginBottom: 15
+  },
+  external: {
+    fontWeight: 'bold',
+    color: DefaultTheme.colors.primary
+  },
+  snackbar: {
+    width: '100%'
+  },
+  sendButton: {
+    position: 'absolute',
+    right: 5,
+    bottom: 10,
+    backgroundColor: DefaultTheme.colors.primary
+  }
 });
 
 export { FormScreen };
