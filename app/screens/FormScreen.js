@@ -128,15 +128,15 @@ class FormScreen extends Component {
 								onChangeText={this.updateDescricao}
               />
             </LabeledInput>
-            <LabeledInput label="Media">
-              <FileUploader/>
-            </LabeledInput>
             <LabeledInput label="Localização">
               <LocationCard 
 								location={location}
                 navigation={navigation}
 								onLocationChanged={this.updateLocation}
               />
+            </LabeledInput>
+            <LabeledInput label="Media">
+              <FileUploader/>
             </LabeledInput>
 						<View style={styles.spacing}/>
           </ScrollView>
