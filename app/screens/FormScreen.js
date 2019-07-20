@@ -41,7 +41,8 @@ class FormScreen extends Component {
 		formData: {
 			categoria: '',
 			descricao: '',
-		}
+    },
+    sendButtonDisabled: false
   }
 
 	updateLocation = (location) => {
@@ -70,16 +71,19 @@ class FormScreen extends Component {
 		if (descricao === '') {
 			this.setState({ message: 'Por favor, escreva uma descrição breve da ocorrência', snackbarVisible: true });
 			return;
-		}
+    }
+    this.setState({ sendButtonDisabled: true })
 		axios.post(`${BASE_URL}/denuncias`, formData).then((response) => {
 			console.log(response);
 			if (response.status === 200) {
-			 	this.setState({ message: 'Denúncia feita com sucesso', snackbarVisible: true });
+			 	this.setState({ message: 'Denúncia feita com sucesso', snackbarVisible: true, sendButtonDisabled: false });
 			} else if (response.status === 400) {
+        this.setState({ sendButtonDisabled: false })
 				this.setState({ message: 'Erro ao enviar dados para o servidor. Por favor, Tente aproximar sua localização.' })
 			}
 		}).catch((error) => {
-			console.log(error);
+      console.log(error);
+      this.setState({ sendButtonDisabled: false })
 			this.setState({ message: 'Erro ao enviar dados para o servidor. Por favor, Tente aproximar sua localização.', snackbarVisible: true });
 		});
   }
@@ -134,7 +138,9 @@ class FormScreen extends Component {
           <View style={{ paddingHorizontal: 8, paddingVertical: 20 }}>
             <FAB
               style={styles.sendButton}
-              icon="send"
+              theme={{ colors: { accent: DefaultTheme.colors.primary } }}
+              icon='send'
+              disabled={this.state.sendButtonDisabled}
               onPress={this.onSend}
             />
             <Snackbar
@@ -184,8 +190,7 @@ const styles = StyleSheet.create({
   sendButton: {
     position: 'absolute',
     right: 5,
-    bottom: 10,
-    backgroundColor: DefaultTheme.colors.primary
+    bottom: 10
   }
 });
 
