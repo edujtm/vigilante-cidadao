@@ -4,6 +4,8 @@
     "slug": "vigilante-cidadao",
     "privacy": "public",
     "sdkVersion": "33.0.0",
+		"githubUrl": "https://github.com/edujtm/vigilante-cidadao",
+		"description": "Este aplicativo permite que cidadãos auxiliem o ministério público a encontrar situações irregulares de despesas de verbas públicas, garantindo eficiência nos gastos públicos e evitando casos de corrupção.",
     "platforms": [
       "ios",
       "android",
@@ -11,7 +13,7 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/vc_launcher/vc_icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
@@ -25,6 +27,9 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+		"android": {
+			"package": "com.tedesco.cidadaovigilante"
+		}
   }
 }
