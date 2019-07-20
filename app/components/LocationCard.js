@@ -71,7 +71,7 @@ const LocationCard = (props) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-				elevation: 4,
+		elevation: 2,
     },
     mapContainer: {
         flex: 1,
@@ -89,9 +89,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 'auto'
     },
-		locationText: {
-			paddingLeft: 8,
-		}
+    locationText: {
+        paddingLeft: 15,
+    }
 });
 
 export { LocationCard };
