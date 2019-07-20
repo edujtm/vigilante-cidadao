@@ -22,7 +22,7 @@ const INITIAL_STATE = {
 const locationReducer = (state, action) => {
     switch (action.type) {
         case actions.UPDATE_LOCATION:
-            return { ...state, location: action.payload }
+            return { ...state, latlng: action.payload }
         case action.UPDATE_SCREEN:
             return { ...state, region: action.payload }
         default:
@@ -39,11 +39,11 @@ const MapScreen = (props) => {
         updateRegion(region);
     }
 
-    const updateLocation = (location) => {
-				console.log(location);
+    const updateLocation = (latlng) => {
+				console.log(latlng);
         dispatch({
             type: actions.UPDATE_LOCATION,
-            payload: location
+            payload: latlng
         });
     }
 
@@ -61,8 +61,8 @@ const MapScreen = (props) => {
             if (status !== 'granted') {
                 navigation.navigate('form');
             }
-            Location.getCurrentPositionAsync({}).then((location) => {
-                const { latitude, longitude } = location.coords;
+            Location.getCurrentPositionAsync({}).then((loc) => {
+                const { latitude, longitude } = loc.coords;
                 updateRegion({ ...INITIAL_STATE.region, latitude, longitude })
                 updateLocation({ latitude, longitude });
                 setMapLoaded(true);
@@ -70,7 +70,7 @@ const MapScreen = (props) => {
         });
     }, []);
 
-    if (!state.location || !mapLoaded) {
+    if (!state.latlng || !mapLoaded) {
         return (
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                 <ActivityIndicator 
@@ -83,14 +83,21 @@ const MapScreen = (props) => {
     return (
         <View style={styles.container}>
             <MapView 
-               initialRegion={{ ...state.location, longitudeDelta: 0.2, latitudeDelta: 0.4 }} 
+               initialRegion={{ ...state.latlng, longitudeDelta: 0.2, latitudeDelta: 0.4 }} 
+								onLongPress={(e) => {
+									const { coordinate } = e.nativeEvent;
+									updateLocation(coordinate);
+								}}
                style={{ flex: 1 }}
             >
                 <Marker 
-                    coordinate={state.location} 
+                    coordinate={state.latlng} 
                     title="localização da ocorrência"
                     draggable
-                    onDragEnd={updateLocation}
+                    onDragEnd={(loc) => {
+											const { coordinate } = loc.nativeEvent;
+											updateLocation(coordinate); 
+										}}
                 />
             </MapView>
             <View style={styles.bottom}>
