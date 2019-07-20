@@ -5,6 +5,10 @@ import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
 
+import { reverseGeocode } from '../utils/Geocode';
+import { API_KEY } from '../../environment';
+
+
 const actions = {
     UPDATE_LOCATION: 'update_location',
     UPDATE_SCREEN: 'update_screen',
@@ -53,11 +57,19 @@ const MapScreen = (props) => {
         })
     }
 
-		const onLocationSelected = () => {
-				InteractionManager.runAfterInteractions(() => {
-					const { latlng } = state;
-					navigation.navigate('form', { latlng });
-				});
+		const onLocationSelected = async () => {
+				const { latlng } = state;
+				try {
+					const address = await reverseGeocode(latlng);
+
+					InteractionManager.runAfterInteractions(() => {
+						const location = { latlng, address }
+						navigation.navigate('form', { location });
+					});
+
+				} catch (error) {
+					console.log(error);
+				}
 		}
 
     useEffect(() => {

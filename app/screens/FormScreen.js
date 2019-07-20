@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { TextInput, Button, Snackbar } from 'react-native-paper';
+import axios from 'axios';
 
 import { Dropdown, LabeledInput, FileUploader, LocationCard } from '../components';
-
 import { BASE_URL } from '../../environment.js';
 
 class FormScreen extends Component {
@@ -14,36 +14,75 @@ class FormScreen extends Component {
 	state = {
 		items: [
 			{
-				text: 'obra irregular'
+				text: 'Consumidor'
 			},
 			{
-				text: 'lixo em local inapropriado'
+				text: 'Criminal'
 			},
 			{
-				text: 'saude'
+				text: 'Educação'
+			},
+			{
+				text: 'Idoso',
+			},
+			{
+				text: 'Meio Ambiente',
+			},
+			{
+				text: 'Patrimônio Público',
+			},
+			{
+				text: 'Saúde',
 			}
     ],
     filepath: null,
     snackbarVisible: false,
     message: '',
+		formData: {
+			categoria: '',
+			descricao: '',
+		}
   }
+
+	updateLocation = (location) => {
+		const { formData } = this.state;
+		this.setState({ formData: { ...formData, local: location } });
+	}
+
+	updateDescricao = (text) => {
+		const { formData } = this.state;
+		this.setState({ formData: { ...formData, descricao: text }});
+	}
 
   onError = (error) => {
     this.setState({ message: error, snackbarVisible: true });
   }
   
   onSend = () => {
-    const { filepath } = this.props;
-    if (filepath) {
-      console.log(filepath);
-    }
+    const { formData } = this.state;
+		const { categoria, descricao } = formData;
+		console.log(formData);
+		if (categoria === '') {
+			this.setState({ message: 'Por favor, selecione uma categoria.', snackbarVisible: true });
+			return;
+		}
+
+		if (descricao === '') {
+			this.setState({ message: 'Por favor, escreva uma descrição breve da ocorrência', snackbarVisible: true });
+			return;
+		}
+		axios.post('https://204cfe6f.ngrok.io', formData).then((response) => {
+			console.log(response);
+		}).catch((error) => {
+			console.log(error);
+		});
   }
 
   render() {
     const { navigation } = this.props;
-    const { items, snackbarVisible } = this.state;
+    const { message, items, snackbarVisible, formData } = this.state;
 
-		const latlng = navigation.getParam('latlng', null);
+		const location = navigation.getParam('location', null);
 
     return (    
         <View style={styles.container}>
@@ -52,7 +91,9 @@ class FormScreen extends Component {
               <View style={styles.category}>
                 <Dropdown 
                     items={items}
-                    onSelect={(index) => console.log(items[index])}
+                    onSelect={(index) => 
+												this.setState({ formData: { ...formData, categoria: items[index] }})
+										}
                 />
               </View>
             </LabeledInput>
@@ -62,6 +103,7 @@ class FormScreen extends Component {
                 mode='outlined'
                 multiline 
                 numberOfLines={5}
+								onChangeText={this.updateDescricao}
               />
             </LabeledInput>
             <LabeledInput label="Media">
@@ -69,10 +111,12 @@ class FormScreen extends Component {
             </LabeledInput>
             <LabeledInput label="Localização">
               <LocationCard 
-								latlng={latlng}
+								location={location}
                 navigation={navigation}
+								onLocationChanged={this.updateLocation}
               />
             </LabeledInput>
+						<View style={styles.spacing}/>
           </ScrollView>
           <Button
             mode='outlined'
@@ -80,11 +124,12 @@ class FormScreen extends Component {
           >
             Enviar
           </Button>
-          {/* <Snackbar
+          <Snackbar
             visible={snackbarVisible}
+						onDismiss={() => this.setState({ snackbarVisible: false })}
           >
-            oi
-          </Snackbar> */}
+           {message} 
+          </Snackbar> 
         </View>
     );
   }
@@ -96,6 +141,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     padding: 16,
   },
+	spacing: {
+		height: 30,
+	},
   category: {
     alignItems: 'stretch',
   },

@@ -3,40 +3,54 @@ import { View, StyleSheet, Platform } from 'react-native';
 import { Text, Surface, IconButton } from 'react-native-paper';
 import MapView, { Marker } from 'react-native-maps';
 
+const getTextFromAddress = (address) => {
+	if (!address.display_name)  {
+		return 'Local não identificado';
+	}
+
+	return address.display_name.substring(0, 30);
+}
+
 const LocationCard = (props) => {
-    const { latlng, navigation } = props;
-		const [location, setLocation] = useState(null);
+    const { location, navigation, onLocationChanged } = props;
+		const [latlng, setLatLong] = useState(null);
 
 		useEffect(() => {
-			setLocation(latlng);
-		}, [latlng]);
+			if (location) {
+				setLatLong(location.latlng);
+				onLocationChanged(location.address);
+			}
+		}, [location]);
 
 		const removeLocation = () => {
-			if (location) {
-				setLocation(null);
+			if (latlng) {
+				setLatLng(null);
+				onLocationChanged(null);
 			}
 		}
 
     return (
         <Surface style={styles.container}>
-            {location ? 
+            {latlng ? 
                 <View style={styles.mapContainer}>
                     <MapView 
                         style={{flex: 1}}
                         scrollEnabled={false}
                         cacheEnabled={Platform.OS === 'android'}
-                        region={{ ...location, latitudeDelta: 0.02, longitudeDelta: 0.045}}
+                        region={{ ...latlng, latitudeDelta: 0.02, longitudeDelta: 0.045}}
                         zoomEnabled={false}
                     >
                         <Marker
-                            coordinate={location}
+                            coordinate={latlng}
                             title="Localização da ocorrência"
                         />
                     </MapView>
                 </View> : null
             }
             <View style={styles.bottomBar}>
-               <Text>Selecione o local da ocorrência</Text> 
+               <Text style={styles.locationText}>
+									{latlng ? getTextFromAddress(location.address) : 'Selecione o local da ocorrência'}
+							 </Text> 
                <View style={styles.icons}>
                    <IconButton 
                         icon="location-on"
@@ -56,24 +70,28 @@ const LocationCard = (props) => {
 
 const styles = StyleSheet.create({
     container: {
-        height: 250,
-        flex: 1
+        flex: 1,
+				elevation: 4,
     },
     mapContainer: {
         flex: 1,
+        height: 250,
     },
     bottomBar: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
         marginTop: 20,
-        marginBottom: 35,
+        marginBottom: 20,
         height: 25,
     },
     icons: {
         flexDirection: 'row',
         height: 'auto'
-    }
+    },
+		locationText: {
+			paddingLeft: 8,
+		}
 });
 
 export { LocationCard };
