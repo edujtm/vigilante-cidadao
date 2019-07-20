@@ -73,8 +73,14 @@ class FormScreen extends Component {
 		}
 		axios.post(`${BASE_URL}/denuncias`, formData).then((response) => {
 			console.log(response);
+			if (response.status === 200) {
+			 	this.setState({ message: 'Denúncia feita com sucesso', snackbarVisible: true });
+			} else if (response.status === 400) {
+				this.setState({ message: 'Erro ao enviar dados para o servidor. Por favor, Tente aproximar sua localização.' })
+			}
 		}).catch((error) => {
 			console.log(error);
+			this.setState({ message: 'Erro ao enviar dados para o servidor. Por favor, Tente aproximar sua localização.' })
 		});
   }
 

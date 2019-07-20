@@ -37,7 +37,7 @@ const LocationCard = (props) => {
                         style={{flex: 1}}
                         scrollEnabled={false}
                         cacheEnabled={Platform.OS === 'android'}
-                        region={{ ...latlng, latitudeDelta: 0.02, longitudeDelta: 0.045}}
+                        region={{ ...latlng, latitudeDelta: 0.009, longitudeDelta: 0.005}}
                         zoomEnabled={false}
                     >
                         <Marker
