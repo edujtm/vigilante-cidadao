@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { View, ScrollView, StyleSheet, Text, Linking } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Linking, Image } from 'react-native';
 import { TextInput, FAB, Snackbar, DefaultTheme } from 'react-native-paper';
 import axios from 'axios';
 
 import { Dropdown, LabeledInput, FileUploader, LocationCard } from '../components';
 import { BASE_URL } from '../../environment.js';
+const LAW_IMG = require('../../assets/law.jpg');
 
 class FormScreen extends Component {
   static navigationOptions = {
@@ -104,6 +105,10 @@ class FormScreen extends Component {
             <View style={styles.wrapperTitle}>
               <Text style={styles.title}>Faça sua denúncia!</Text>
               <Text style={styles.subtitle}>Sua denúncia será enviada para o <Text style={styles.external} onPress={this._handleMPLink}>Ministério Público do Rio Grande do Norte</Text>.</Text>
+              <Image 
+                style={{ width: 240, height: 180, alignSelf: 'center' }}
+                source={LAW_IMG}
+              />
             </View>
             <LabeledInput label="Categorias">
               <View style={styles.category}>
