@@ -80,7 +80,7 @@ class FormScreen extends Component {
 			}
 		}).catch((error) => {
 			console.log(error);
-			this.setState({ message: 'Erro ao enviar dados para o servidor. Por favor, Tente aproximar sua localização.' })
+			this.setState({ message: 'Erro ao enviar dados para o servidor. Por favor, Tente aproximar sua localização.', snackbarVisible: true });
 		});
   }
 
