@@ -43,6 +43,8 @@ class FormScreen extends Component {
     const { navigation } = this.props;
     const { items, snackbarVisible } = this.state;
 
+		const latlng = navigation.getParam('latlng', null);
+
     return (    
         <View style={styles.container}>
           <ScrollView style={styles.content}>
@@ -67,6 +69,7 @@ class FormScreen extends Component {
             </LabeledInput>
             <LabeledInput label="Localização">
               <LocationCard 
+								latlng={latlng}
                 navigation={navigation}
               />
             </LabeledInput>

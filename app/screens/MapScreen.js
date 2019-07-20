@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useReducer } from 'react';
-import { View, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, ActivityIndicator, InteractionManager } from 'react-native';
 import { Button } from 'react-native-paper';
 import MapView, { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
@@ -40,7 +40,6 @@ const MapScreen = (props) => {
     }
 
     const updateLocation = (latlng) => {
-				console.log(latlng);
         dispatch({
             type: actions.UPDATE_LOCATION,
             payload: latlng
@@ -48,12 +47,18 @@ const MapScreen = (props) => {
     }
 
     const updateRegion = (region) => {
-        console.log(`updateRegion called: ${region}`);
         dispatch({
             type: actions.UPDATE_SCREEN,
             payload: region,
         })
     }
+
+		const onLocationSelected = () => {
+				InteractionManager.runAfterInteractions(() => {
+					const { latlng } = state;
+					navigation.navigate('form', { latlng });
+				});
+		}
 
     useEffect(() => {
         Permissions.askAsync(Permissions.LOCATION)
@@ -105,6 +110,7 @@ const MapScreen = (props) => {
                     style={styles.button}
                     mode='contained'
                     icon="location-on"
+										onPress={onLocationSelected}
                 >
                     SELECIONAR POSIÇÃO
                 </Button>
