@@ -24,7 +24,7 @@ const LocationCard = (props) => {
 
 		const removeLocation = () => {
 			if (latlng) {
-				setLatLng(null);
+				setLatLong(null);
 				onLocationChanged(null);
 			}
 		}
