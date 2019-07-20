@@ -71,7 +71,7 @@ class FormScreen extends Component {
 			this.setState({ message: 'Por favor, escreva uma descrição breve da ocorrência', snackbarVisible: true });
 			return;
 		}
-		axios.post('https://204cfe6f.ngrok.io', formData).then((response) => {
+		axios.post(`${BASE_URL}/denuncias`, formData).then((response) => {
 			console.log(response);
 		}).catch((error) => {
 			console.log(error);
