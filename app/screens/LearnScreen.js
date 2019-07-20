@@ -21,8 +21,10 @@ class LearnScreen extends Component {
         </View>
         <List.Section style={styles.list}>
           <List.Accordion
+            theme={{ colors: { text: '#FFFF' } }}
+            title="Qual a diferença entre Denúncia, Queixa e Notícia-crime?"
+            titleStyle={styles.listItemTitle}
             style={styles.listItem}
-            left={() => <Text style={styles.listItemTitle}>Qual a diferença entre Denúncia, Queixa e Notícia-crime?</Text>}
           >
             <Text style={styles.listItemContent}>
             É a exposição do fato criminoso à polícia ou ao Ministério Público.
@@ -66,10 +68,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   listItemContent: {
+    padding: 15,
+    color: '#262626',
     borderColor: DefaultTheme.colors.primary,
     borderWidth: 1,
-    paddingVertical: 10,
-    textAlign: 'left'
+    fontSize: 14,
+    textAlign: 'justify'
   }
 })
 
