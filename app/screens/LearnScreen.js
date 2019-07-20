@@ -16,6 +16,22 @@ const LEARN_ITEMS = [
 {
 	title: 'Quais as áreas de atuação do MP?',
 	text: 'Consumidor; Criminal; Educação; Idoso; Infância, juventude e família; Meio Ambienter; Patrimônio Público; Pessoa com deficiência; Saúde.'
+},
+{
+  title: 'O que pode ser denunciado?',
+  text: `A seguir exemplos de algumas situações que podem ser noticiadas ao MP. Para conhecer mais a legislação visite: http://www4.planalto.gov.br/legislacao/
+
+  Violação do direito do consumidor, em âmbito coletivo, procure as Promotorias de Justiça com atribuição na matéria, para que sejam tomadas as providências cabíveis.
+  Exemplos:como no caso de uma propaganda enganosa publicada em jornais de grande circulação; os interesses coletivos, a exemplo de várias pessoas que assinam contratos de adesão de uma operadora de telefonia celular com cláusulas abusivas; e os individuais homogêneos, como no caso de consumidores que compram um tipo de carro com o mesmo defeito de fabricação.
+  Para saber mais sobre o trabalho do MP na defesa dos direitos do consumidor acesse : http://rn.consumidorvencedor.mp.br
+  
+  Os cidadãos podem encaminhar informações em geral que possam levar à prisão de criminosos, denunciar atos de corrupção e crimes de qualquer natureza.
+  A denúncia de crimes pode ser feita gratuitamente por e-mail: denuncia@mprn.mp.br, telefone 127, whatsapp (84) 98863-4585. No Whatsapp, como neste app, são aceitos textos, fotos, áudios e vídeos que possam comprovar as informações oferecidas.
+  
+  Violência na escola, más condições da estrutura física das escolas, falta de professores, falta de merenda escolar, problemas no transporte escolar, falta de políticas públicas voltadas para a educação e aplicação inadequada de verba.
+  
+  Ameaça ou violação aos direitos dos idosos por ação ou omissão da sociedade ou do Estado; por falta, omissão ou abuso da família, curador ou entidade de atendimento, em razão de sua condição pessoal.
+  `
 }
 ];
 
@@ -33,10 +49,10 @@ class LearnScreen extends Component {
             style={{ width: 240, height: 150 }}
             source={LEARN_IMG}
           />
-          <Text style={styles.text}>Aprenda como fazer uma denúncia de forma efetiva</Text>
+          <Text style={styles.text}>Aprenda como fazer uma denúncia de forma efetiva.</Text>
         </View>
         <List.Section style={styles.list}>
-          {LEARN_ITEMS.map(item => {
+          {LEARN_ITEMS.map(item => (
             <List.Accordion
               theme={{ colors: { text: '#FFFF' } }}
               title={item.title}
@@ -48,7 +64,7 @@ class LearnScreen extends Component {
               {item.text}
               </Text>
             </List.Accordion>
-          })}
+          ))}
         </List.Section>
       </ScrollView>
     );
@@ -77,19 +93,21 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   listItem: {
-    backgroundColor: DefaultTheme.colors.primary
+    backgroundColor: DefaultTheme.colors.primary,
+    marginTop: 10
   },
   listItemTitle: {
     color: '#FFFF',
-    fontSize: 16,
-    fontWeight: 'bold'
+    fontSize: 17,
+    fontWeight: 'bold',
+    flexWrap: 'nowrap'
   },
   listItemContent: {
     padding: 15,
     color: '#262626',
     borderColor: DefaultTheme.colors.primary,
     borderWidth: 1,
-    fontSize: 14,
+    fontSize: 15,
     textAlign: 'justify'
   }
 })

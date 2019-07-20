@@ -14,6 +14,10 @@ const TabNavigator = createMaterialTopTabNavigator({
     inactiveTintColor: '#80868a',
     indicatorStyle: {
       backgroundColor: '#262626'
+    },
+    labelStyle: {
+      fontWeight: 'bold',
+      fontSize: 15
     }
   }
 });
@@ -31,7 +35,7 @@ const MainNavigator = createStackNavigator({
       },
       headerTintColor: '#262626',
       headerTitleStyle: {
-        fontSize: 26
+        fontSize: 24
       }
     }),
   },
